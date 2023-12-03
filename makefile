@@ -1,0 +1,53 @@
+CC ?= gcc 
+CXX ?= g++
+CPP ?= g++
+
+
+APP_NAME_PIPE_SIMPLE = pipes2
+OBJ_FILES_PIPE_SIMPLE = pipes2.o
+
+APP_NAME_PIPE_PROCESS= pipes2_process
+OBJ_FILES_PIPE_PROCESS= pipes2_process.o
+
+APP_NAME_MKFIFO_2= mkfifo
+OBJ_FILES_MKFIFO_2 = mkfifo.o
+
+APP_NAME_MKFIFO= mkfifo_2
+OBJ_FILES_MKFIFO = mkfifo_2.o
+
+APP_NAME_SHRMEM= share_memo
+OBJ_FILES_SHRMEM = share_memo.o
+
+APP_NAME_SHRMEM2= share_memo2
+OBJ_FILES_SHRMEM2 = share_memo2.o
+LIBS = .
+
+all: $(APP_NAME_PIPE_SIMPLE) $(APP_NAME_PIPE_PROCESS) $(APP_NAME_MKFIFO_2) $(APP_NAME_MKFIFO) $(APP_NAME_SHRMEM2) $(APP_NAME_SHRMEM)
+
+$(APP_NAME_PIPE_SIMPLE): $(OBJ_FILES_PIPE_SIMPLE)
+	$(CC) -o $@ $^
+
+$(APP_NAME_PIPE_PROCESS): $(OBJ_FILES_PIPE_PROCESS)
+	$(CC) -o $@ $^
+
+$(APP_NAME_MKFIFO): $(OBJ_FILES_MKFIFO)
+	$(CC) -o $@ $^
+
+$(APP_NAME_MKFIFO_2): $(OBJ_FILES_MKFIFO_2)
+	$(CC) -o $@ $^
+
+$(APP_NAME_SHRMEM): $(OBJ_FILES_SHRMEM)
+	$(CC) -o $@ $^
+
+$(APP_NAME_SHRMEM2): $(OBJ_FILES_SHRMEM2)
+	$(CC) -o $@ $^
+
+%.o: %.c
+	$(CC) -o $@ -c $^ -g
+
+
+clean:
+	rm *.o $(APP_NAME_PIPE_SIMPLE) $(APP_NAME_PIPE_PROCESS) $(APP_NAME_MKFIFO_2) $(APP_NAME_MKFIFO) $(APP_NAME_SHRMEM) $(APP_NAME_SHRMEM2)
+fresh:
+	make clean
+	make all
